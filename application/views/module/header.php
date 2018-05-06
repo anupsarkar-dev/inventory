@@ -92,13 +92,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
               
                  <li>
-                    <a href="<?php echo site_url('student/add_departments'); ?>">
+                    <a href="<?php echo site_url('products'); ?>">
                         <i class="ti-package"></i>
                         <p>Products</p>
                     </a>
                 </li>
                  <li>
-                    <a href="<?php echo site_url('student/add_departments'); ?>">
+                    <a href="<?php echo site_url('products/categories/'); ?>">
                         <i class="ti-view-list-alt"></i>
                         <p>Category</p>
                     </a>
@@ -134,7 +134,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                          <li>
                             <a href="<?php echo site_url('account/signup'); ?>">
                                 <i class="ti-user"></i>
-                                <p>Login</p>
+                                <p><?php echo $_SESSION['admin_email']; ?></p>
                             </a>
                         </li>
 
@@ -146,7 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </li>
 
 						<li>
-                            <a href="#">
+                            <a href="<?php echo site_url('account/logout'); ?>">
 								<i class="ti-back-left"></i>
 								<p>Logout</p>
                             </a>

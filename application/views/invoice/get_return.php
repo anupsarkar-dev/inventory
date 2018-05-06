@@ -13,7 +13,7 @@ $this->load->view("module/header",$data);
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">All Invoices  <a class="btn btn-primary" href="<?php echo base_url().'index.php/invoice/add_return' ?>" style="float: right"> Add New product invoice </a> </h4>
+                                <h4 class="title">All Returned Invoices  <a class="btn btn-primary" href="<?php echo base_url().'index.php/invoice/add_return' ?>" style="float: right"> Add New product invoice </a> </h4>
                                
                               
                             </div>
