@@ -55,7 +55,7 @@ class products_model extends CI_Model
 
         //Active Record
          $this->db->select('*');
-        $this->db->select('category.category_name as category');
+         $this->db->select('category.category_name as category,products.id as id');
          $this->db->from('products'); /*I assume that film was the table name*/
         
     

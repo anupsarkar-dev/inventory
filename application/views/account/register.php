@@ -192,7 +192,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <li>
                             <a href=""  style="color: white">
-                                Hello Hi Parking
+                               Inventory
                             </a>
                         </li>
                         <li>

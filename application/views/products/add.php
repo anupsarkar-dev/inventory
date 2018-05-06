@@ -57,6 +57,7 @@ $this->load->view("module/header",$data);
                  
                   
                <div class="footer text-center">
+                <br/>
                   <input type="submit" class="btn btn-fill btn-neutral btn-wd" id="btn_product" name="btn_product" value="Add Product" />
                </div>
             </div>

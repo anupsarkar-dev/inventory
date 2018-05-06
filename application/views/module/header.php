@@ -58,40 +58,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul class="nav">
                
                 <li class="active">
-                    <a href="<?php echo site_url('student'); ?>">
-                        <i class="ti-user"></i>
-                        <p>Stock</p>
+                    <a href="<?php echo site_url('stock/Received'); ?>">
+                        <i class="ti-pencil-alt"></i>
+                        <p>Stock Received</p>
                     </a>
                 </li>
 
                    <li>
-                    <a href="<?php echo site_url('student/add_student'); ?>">
-                        <i class="ti-user"></i>
+                    <a href="<?php echo site_url('stock/Returned'); ?>">
+                        <i class="ti-pencil"></i>
                         <p>Stock Return</p>
                     </a>
                 </li>
 
+                 <li>
+                    <a href="<?php echo site_url('stock/Present'); ?>">
+                        <i class="ti-write"></i>
+                        <p>Stock Present</p>
+                    </a>
+                </li>
+
                 <li >
-                    <a href="<?php echo site_url('student/Departments'); ?>">
-                        <i class="ti-map"></i>
+                    <a href="<?php echo site_url('invoice'); ?>">
+                        <i class="ti-check-box"></i>
                         <p>Invoice</p>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo site_url('student/add_departments'); ?>">
-                        <i class="ti-view-list-alt"></i>
+                    <a href="<?php echo site_url('invoice/get_return'); ?>">
+                        <i class="ti-notepad"></i>
                         <p>Invoice Return</p>
                     </a>
                 </li>
+              
                  <li>
                     <a href="<?php echo site_url('student/add_departments'); ?>">
-                        <i class="ti-view-list-alt"></i>
-                        <p>Report</p>
-                    </a>
-                </li>
-                 <li>
-                    <a href="<?php echo site_url('student/add_departments'); ?>">
-                        <i class="ti-view-list-alt"></i>
+                        <i class="ti-package"></i>
                         <p>Products</p>
                     </a>
                 </li>
@@ -99,6 +101,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a href="<?php echo site_url('student/add_departments'); ?>">
                         <i class="ti-view-list-alt"></i>
                         <p>Category</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?php echo site_url('student/add_departments'); ?>">
+                        <i class="ti-printer"></i>
+                        <p>Report</p>
                     </a>
                 </li>
                
