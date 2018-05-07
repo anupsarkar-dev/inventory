@@ -17,6 +17,12 @@ class Migration_Add_Stock_Return extends CI_Migration {
                                 'type' => 'INT',
                                 'constraint' => 5,
                                 'unsigned' => TRUE,
+                        )
+                         ,
+                         'stock_present_id' => array(
+                                'type' => 'INT',
+                                'constraint' => 5,
+                                'unsigned' => TRUE,
                         ) ,
                         'quantity' => array(
                                 'type' => 'INT',
@@ -48,6 +54,7 @@ class Migration_Add_Stock_Return extends CI_Migration {
                 ));
                 $this->dbforge->add_key('id', TRUE);
                   $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (product_id) REFERENCES products(id)');
+                  $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (stock_present_id) REFERENCES present_stock(id)');
                 $this->dbforge->create_table('stock_return');
         }
 

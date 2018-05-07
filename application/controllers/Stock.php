@@ -38,18 +38,19 @@ public function received_add()
 
     // get the posted values
 
-    $product = $this->input->post("txt_stock_product");
+    $product_id = $this->input->post("txt_stock_product");
     $qty = $this->input->post("txt_stock_qty");
     $free = $this->input->post("txt_stock_free");
-    $price = $this->input->post("txt_stock_price");
+   
+    $date = $this->input->post("txt_stock_date");
    
 
 
     $this->form_validation->set_rules("txt_stock_qty", "Stock Quantity", "trim|required");
 
-     $this->form_validation->set_rules("txt_stock_free", "Stock Free", "trim|required");
+    $this->form_validation->set_rules("txt_stock_free", "Stock Free", "trim|required");
 
-      $this->form_validation->set_rules("txt_stock_price", "Price", "trim|required");
+    
 
  
 
@@ -68,24 +69,42 @@ public function received_add()
     {
 
       // validation succeeds
+ $price=$this->stocks_model->get_product_price($product_id);
 
-      $amount=$qty*$price;
-      $total_qty=$qty+$free;
       
-      $data = array(
-          'product_id' => $product,
+      $amount=$qty*$price->price;
+      $total_qty=$qty+$free;
+
+     
+     
+
+      $data2 = array(
+          'product_id' => $product_id,
           'quantity' => $qty,
            'free_item' => $free,
           'total_quantity' => $total_qty,
-          'price' => $price,
+
+           'amount' => $amount ,
+           
+           'date' => $date,
+        );
+
+$sr_id=$this->stocks_model->insert_stock_received($data2);
+       $data = array(
+          'product_id' => $product_id,
+          'quantity' => $qty,
+           'free_item' => $free,
+          'total_quantity' => $total_qty,
+         'stock_present_id' => $sr_id,
            'amount' => $amount ,
            'avarage' => $amount/$total_qty,
+           'date' => $date,
         );
 
         // check if username and password is correct
 
-        $result = $this->stocks_model->insert_stock_received($data);
-        if ($result) //active user record is present
+        $result = $this->stocks_model->insert_stock_received2($data);
+        if ($result != 0) //active user record is present
         {
           $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">A New products has added !</div>');
           redirect('stock/received');
@@ -148,7 +167,7 @@ public function returned_add()
     $product = $this->input->post("txt_stock_product");
     $qty = $this->input->post("txt_stock_qty");
     $free = $this->input->post("txt_stock_free");
-    $price = $this->input->post("txt_stock_price");
+ 
    
 
 
@@ -156,10 +175,10 @@ public function returned_add()
 
      $this->form_validation->set_rules("txt_stock_free", "Stock Free", "trim|required");
 
-      $this->form_validation->set_rules("txt_stock_price", "Price", "trim|required");
+  
 
  
-
+ $price=10000;
     if ($this->form_validation->run() == FALSE)
     {
 
@@ -169,7 +188,7 @@ public function returned_add()
      
       $data['products'] = $this->products_model->get();
    
-      $this->load->view('stock/received_add',$data);
+      $this->load->view('stock/returned_add',$data);
     }
     else
     {
@@ -178,6 +197,26 @@ public function returned_add()
 
       $amount=$qty*$price;
       $total_qty=$qty+$free;
+
+      $pre_id=$this->stocks_model->getpid($product);
+
+      if($pre_id != 0)
+      {
+        $pstock=$this->stocks_model->get_present_stock($pre_id);
+
+         $data2 = array(
+   
+          'quantity' => $pstock->quantity + $qty,
+          'free_item' => $pstock->free_item+ $free,
+          'total_quantity' => $pstock->total_quantity+$total_qty,
+          'price' => $pstock->price+$price,
+          'amount' => $pstock->$amount ,
+         
+        );
+
+         $status=$this->stocks_model->update_ps($data2,$pre_id);
+
+      }
       
       $data = array(
           'product_id' => $product,
@@ -189,13 +228,23 @@ public function returned_add()
          
         );
 
+
+
         // check if username and password is correct
 
         $result = $this->stocks_model->insert_stock_returned($data);
         if ($result) //active user record is present
         {
           $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">A New products has added !</div>');
-          redirect('stock/returned');
+          //redirect('stock/returned');
+          if($status)
+          {
+            echo "true";
+          }
+          else
+          {
+            echo "false";
+          }
         
       
         }

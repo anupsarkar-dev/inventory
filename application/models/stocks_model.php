@@ -15,11 +15,25 @@ class stocks_model extends CI_Model
 	//send verification email to user's email id
 	
 
-	function insert_stock_received($data)
+	function insert_stock_received($data2)
     {
-		return $this->db->insert('stock_received', $data);
+		if($this->db->insert('present_stock', $data2))
+        {
+           return  $sp_id = $this->db->insert_id();
+        
+        }
+        else
+        {
+            return 0;
+        }
 	}
 
+    function insert_stock_received2($data)
+    {
+
+            return $this->db->insert('stock_received', $data);
+
+    }
 		
    
 
@@ -33,7 +47,7 @@ class stocks_model extends CI_Model
 
         //Active Record
          $this->db->select('*');
-         $this->db->select('products.name as name,products.code as code,stock_received.id as sid,stock_received.price as price');
+         $this->db->select('products.name as name,products.code as code,stock_received.id as sid,products.price as price');
          $this->db->from('stock_received'); /*I assume that film was the table name*/
         /*I assume that film was the table name*/
          $this->db->join('products', 'products.id = stock_received.product_id');
@@ -46,6 +60,14 @@ class stocks_model extends CI_Model
         return $result;
     }
 
+
+    public function get_product_price($id)
+     {
+     $this->db->select('*');
+    $this->db->from('products');
+    $this->db->where('id',$id);
+    return $this->db->get()->row();
+    }
      
 
  
@@ -70,13 +92,43 @@ public function delete_stock_received($id)
 
     function insert_stock_returned($data)
     {
-        return $this->db->insert('stock_return', $data);
-    }
+return $this->db->insert('stock_returned', $data);
+       }
 
         
+   function getpid($pid)
+{
+      $this->db->select('*');
+    $this->db->from('stock_received');
+    $this->db->where('product_id',$pid);
+    if($this->db->get()->num_rows() > 0)
+    {
+         return $this->db->get()->row()->stock_present_id;
+    }
+    else
+        return 0;
    
-
+}
  
+  public function get_present_stock($id)
+     {
+     $this->db->select('*');
+    $this->db->from('present_stock');
+    $this->db->where('id',$id);
+    return $this->db->get()->row();
+    }
+
+
+   public function update_ps($data,$id)
+    {
+   
+       
+        $this->db->where('id', $id);
+       
+        $this->db->update('present_stock',$data);
+        return true;
+    }
+
 
     public function get_stock_return()
     {
@@ -86,7 +138,7 @@ public function delete_stock_received($id)
 
         //Active Record
          $this->db->select('*');
-         $this->db->select('products.name as name,products.code as code,stock_return.id as sid,stock_return.price as price');
+         $this->db->select('products.name as name,products.code as code,stock_return.id as sid,products.price as price');
          $this->db->from('stock_return'); /*I assume that film was the table name*/
         /*I assume that film was the table name*/
          $this->db->join('products', 'products.id = stock_return.product_id');
@@ -138,7 +190,7 @@ public function delete_stock_return($id)
 
         //Active Record
          $this->db->select('*');
-         $this->db->select('products.name as name,products.code as code,present_stock.id as sid,present_stock.price as price');
+         $this->db->select('products.name as name,products.code as code,present_stock.id as sid,products.price as price');
          $this->db->from('present_stock'); /*I assume that film was the table name*/
         /*I assume that film was the table name*/
          $this->db->join('products', 'products.id = present_stock.product_id');
@@ -172,6 +224,54 @@ public function delete_stock_present($id)
 
 
 
+
+    function insert_dsr($data)
+    {
+        return $this->db->insert('dsr', $data);
+    }
+
+        
+   
+
+ 
+ public function get_dsr()
+    {
+        
+         $this->db->select('*');
+              $this->db->from('dsr'); /*I assume that film was the table name*/
+            
+        
+
+            $sql= $this->db->get();
+
+        
+        $result=$sql->result();
+
+        return $result;
+    }
+
+ 
+
+
+public function delete_dsr($id)
+{
+    $this->db->where('id', $id);
+    $this->db->delete('dsr');
+    if($this->db->affected_rows() > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+
+
+
+ 
 
 
  

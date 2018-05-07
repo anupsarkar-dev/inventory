@@ -16,7 +16,7 @@ class Invoice extends CI_Controller {
  
 
  
-   public function index()
+public function index()
   {
     $data['current']='products ';
     $data['invoices'] = $this->invoice_model->get();
@@ -27,6 +27,7 @@ class Invoice extends CI_Controller {
 public function  add()
   {
       $data['current']='products';
+      $data['dsr']=$this->stocks_model->get_dsr();
       $data['products'] = $this->products_model->get();
       $this->load->view('invoice/add',$data);
   }
@@ -43,7 +44,8 @@ public function  add()
     $qty = $this->input->post("txt_invoice_qty");
     $free = $this->input->post("txt_invoice_free");
     $price = $this->input->post("txt_invoice_price");
-   
+    $dsr = $this->input->post("txt_invoice_dsr");
+    $date = $this->input->post("txt_invoice_date");
 
 
     $this->form_validation->set_rules("txt_invoice_qty", "invoice Quantity", "trim|required");
@@ -51,6 +53,9 @@ public function  add()
      $this->form_validation->set_rules("txt_invoice_free", "invoice Free", "trim|required");
 
       $this->form_validation->set_rules("txt_invoice_price", "Price", "trim|required");
+
+      $this->form_validation->set_rules("txt_invoice_price", "dsr", "required");
+      $this->form_validation->set_rules("txt_invoice_product", "Product", "required");
 
  
 
@@ -62,6 +67,7 @@ public function  add()
 
      
       $data['products'] = $this->products_model->get();
+      $data['dsr']=$this->stocks_model->get_dsr();
    
       $this->load->view('invoice/add',$data);
     }
@@ -80,6 +86,8 @@ public function  add()
           'total_quantity' => $total_qty,
           'price' => $price,
           'amount' => $amount ,
+          'dsr_id' => $dsr,
+          'date' => $date,
          
         );
 
@@ -88,7 +96,7 @@ public function  add()
         $result = $this->invoice_model->insert($data);
         if ($result) //active user record is present
         {
-          $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">invoice Present has added !</div>');
+          $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">invoice  has added !</div>');
           redirect('invoice/');
         
       
@@ -137,6 +145,7 @@ public function  add()
 public function  add_return()
   {
       $data['current']='products';
+      $data['dsr']=$this->stocks_model->get_dsr();
       $data['products'] = $this->products_model->get();
       $this->load->view('invoice/add_return',$data);
   }
@@ -155,6 +164,8 @@ public function  add_return()
     $price = $this->input->post("txt_invoice_price");
     $rec= $this->input->post("txt_invoice_rec");
     $due = $this->input->post("txt_invoice_due");
+    $dsr = $this->input->post("txt_invoice_dsr");
+    $date = $this->input->post("txt_invoice_date");
    
    
 
@@ -166,6 +177,9 @@ public function  add_return()
       $this->form_validation->set_rules("txt_invoice_price", "Price", "trim|required");
 
  
+      $this->form_validation->set_rules("txt_invoice_price", "dsr", "required");
+      $this->form_validation->set_rules("txt_invoice_product", "Product", "required");
+
 
     if ($this->form_validation->run() == FALSE)
     {
@@ -175,7 +189,8 @@ public function  add_return()
 
      
       $data['products'] = $this->products_model->get_return();
-   
+      $data['dsr']=$this->stocks_model->get_dsr();
+      
       $this->load->view('invoice/add',$data);
     }
     else
@@ -193,8 +208,10 @@ public function  add_return()
           'total_quantity' => $total_qty,
           'price' => $price,
           'amount' => $amount ,
-           'rec_amount' => $rec,
+          'rec_amount' => $rec,
           'due_amount' => $due ,
+          'dsr_id'=>$dsr,
+          'date' => $date,
          
         );
 

@@ -13,7 +13,7 @@ $this->load->view("module/header",$data);
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">All Returned Invoices  <a class="btn btn-primary" href="<?php echo base_url().'index.php/invoice/add_return' ?>" style="float: right"> Add New product invoice </a> </h4>
+                                <h4 class="title">All DSR <a class="btn btn-primary" href="<?php echo base_url().'index.php/admin/dsr_add' ?>" style="float: right"> Add New dsr </a> </h4>
                                
                               
                             </div>
@@ -25,18 +25,10 @@ $this->load->view("module/header",$data);
 
                                 <table class="table table-hover">
                                     <thead>
-                                        <tr style="font-size: 12px"><th>SL</th>
-                                      <th>Product Name</th>
-                                      <th>DSR Name</th>
-                                      <th>P. Quanty</th>
-                                       <th>Free Item</th>
-                                      <th>Total Qty.</th>
-                                      <th>Price</th>
-                                      <th>Amount</th>
-                                   <th>Rec. Amount</th>
-                                      <th>Due Amount</th>
-                                      <th>Date </th>
-                                      
+                                        <tr><th>SL</th>
+                                      <th>Name</th>
+                                      <th>DSR ID</th>
+                                  
                                     
                                       <th></th>
                                     </tr></thead>
@@ -45,34 +37,26 @@ $this->load->view("module/header",$data);
 <?php
 
 $i=1;
-            foreach ($invoices as $item)
+            foreach ($dsr as $item)
             {
                   $url=base_url();
-                  $id=$item->sid; 
-                  $name=$item->name; 
-                  $date=date_create($item->date);
+                  $id=$item->id; 
+                  $name=$item->dsr_name; 
+                
 
 
                                        echo "<tr>";
                                        echo "<td>".$i."</td>"; 
                                       
                                        echo "<td>".$name."</td>";   
-                                       echo "<td>".$item->dsr_name."</td>";
-                                       echo "<td>".$item->quantity."</td>";
-                                       echo "<td>".$item->free_item."</td>";
-                                       echo "<td>".$item->total_quantity."</td>";
-                                       echo "<td>৳".$item->price."</td>";
-                                       echo "<td>৳".$item->amount."</td>";
-                                        echo "<td>৳ ".$item->rec_amount."</td>";
-                                         echo "<td>৳ ".$item->due_amount."</td>";
-                                         echo "<td>".date_format($date,"d/m/Y ")."</td>";
-                                  
+                                        echo "<td>".$item->dsr_id."</td>";
+                              
                                          
 
                                   
                                          echo  "<td>
                                          
-                                      <a href='".$url."index.php/invoice/delete_return/".$id."'>Delete  </a>
+                                      <a href='".$url."index.php/products/dsr_delete/".$id."'>Delete  </a>
                                       
                                       </td>";
                                        echo    "</tr>";

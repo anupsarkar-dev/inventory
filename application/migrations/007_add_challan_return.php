@@ -12,6 +12,12 @@ class Migration_Add_Challan_Return extends CI_Migration {
                                 'constraint' => 5,
                                 'unsigned' => TRUE,
                                 'auto_increment' => TRUE
+                        )
+                        ,
+                         'dsr_id' => array(
+                                'type' => 'INT',
+                                'constraint' => 5,
+                                'unsigned' => TRUE,
                         ),
                          'product_id' => array(
                                 'type' => 'INT',
@@ -62,7 +68,8 @@ class Migration_Add_Challan_Return extends CI_Migration {
                         , 'date TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
                 ));
                 $this->dbforge->add_key('id', TRUE);
-                  $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (product_id) REFERENCES products(id)');
+                $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (product_id) REFERENCES products(id)');
+                $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (dsr_id) REFERENCES dsr(id)');
                 $this->dbforge->create_table('challan_return');
         }
 

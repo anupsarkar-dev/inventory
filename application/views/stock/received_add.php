@@ -47,9 +47,12 @@ $this->load->view("module/header",$data);
                      <span class="text-danger"><?php echo form_error('txt_stock_free'); ?></span>
                   </div>
 
-                   <div class="form-group">
-                     <input type="number" placeholder=" Price(৳)" id="txt_stock_price" name="txt_stock_price" class="form-control" value="<?php echo set_value('txt_stock_price'); ?>">
-                     <span class="text-danger"><?php echo form_error('txt_stock_price'); ?></span>
+                 
+
+                  <div class="form-group">
+                    <label style="text-align: center;"><span>Date</span></label>
+                     <input type="date"   id="txt_stock_date" name="txt_stock_date"   class="form-control" value="<?php echo date('Y-m-d'); ?>">
+                    
                   </div>
 
                    

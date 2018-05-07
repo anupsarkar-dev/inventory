@@ -105,7 +105,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
 
                 <li>
-                    <a href="<?php echo site_url('student/add_departments'); ?>">
+                    <a href="<?php echo site_url('admin/dsr'); ?>">
+                        <i class="ti-user"></i>
+                        <p>DSR</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo site_url(''); ?>">
                         <i class="ti-printer"></i>
                         <p>Report</p>
                     </a>

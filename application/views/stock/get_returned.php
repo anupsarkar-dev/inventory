@@ -13,7 +13,7 @@ $this->load->view("module/header",$data);
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">All Stock Received <a class="btn btn-primary" href="<?php echo base_url().'index.php/stock/received_add' ?>" style="float: right"> Add New product </a> </h4>
+                                <h4 class="title">All Stock Received <a class="btn btn-primary" href="<?php echo base_url().'index.php/stock/returned_add' ?>" style="float: right"> Add New product </a> </h4>
                                
                               
                             </div>

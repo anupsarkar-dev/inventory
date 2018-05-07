@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Add_Challan extends CI_Migration {
+class Migration_Add_Stock extends CI_Migration {
 
         public function up()
         {
@@ -14,6 +14,12 @@ class Migration_Add_Challan extends CI_Migration {
                                 'auto_increment' => TRUE
                         ),
                          'product_id' => array(
+                                'type' => 'INT',
+                                'constraint' => 5,
+                                'unsigned' => TRUE,
+                        )
+                        ,
+                         'stock_present_id' => array(
                                 'type' => 'INT',
                                 'constraint' => 5,
                                 'unsigned' => TRUE,
@@ -39,7 +45,11 @@ class Migration_Add_Challan extends CI_Migration {
                         'amount' => array(
                                 'type' => 'DOUBLE',
                                 
-                        ) ,'status' => array(
+                        ),
+                        'avarage' => array(
+                                'type' => 'DOUBLE',
+                                
+                        ),'status' => array(
                                 'type' => 'VARCHAR',
                                 'constraint' => '1',
                                 'default' => '1'
@@ -48,11 +58,12 @@ class Migration_Add_Challan extends CI_Migration {
                 ));
                 $this->dbforge->add_key('id', TRUE);
                   $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (product_id) REFERENCES products(id)');
-                $this->dbforge->create_table('challan');
+                      $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (stock_present_id) REFERENCES present_stock(id)');
+                $this->dbforge->create_table('stock_received');
         }
 
         public function down()
         {
-                $this->dbforge->drop_table('challan');
+                $this->dbforge->drop_table('stock_received');
         }
 }

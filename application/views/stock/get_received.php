@@ -31,7 +31,7 @@ $this->load->view("module/header",$data);
                                       <th>P. Quanty</th>
                                        <th>Free Item</th>
                                       <th>Total Quantity</th>
-                                      <th>Price</th>
+                                      <th>Unit Price</th>
                                       <th>Amount</th>
                                       <th>Avarage</th>
                                       

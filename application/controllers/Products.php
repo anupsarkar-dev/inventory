@@ -106,7 +106,7 @@ public function add()
 
     $this->form_validation->set_rules("txt_category_name", "Category name", "trim|required|min_length[3]|max_length[300]");
 
-     $this->form_validation->set_rules("txt_category_details", "Category Designation", "trim|required|min_length[3]|max_length[100]");
+     $this->form_validation->set_rules("txt_category_details", "Category Designation", "trim|max_length[100]");
 
      $this->form_validation->set_rules("txt_category_type", "Category Address", "trim|min_length[3]|max_length[200]");
 
@@ -125,7 +125,7 @@ public function add()
      
 
    
-      $this->load->view('products/addcategory ');
+      $this->load->view('products/category_add');
     }
     else
     {

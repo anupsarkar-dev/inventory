@@ -3,6 +3,10 @@
 $data['isactive']="invoice_recieved";
 $this->load->view("module/header",$data);
    ?>
+
+ <script type="text/javascript">
+
+ </script>
 <div class="content">
    <div class="container-fluid">
       <div class="row">
@@ -23,6 +27,27 @@ $this->load->view("module/header",$data);
                   <hr />
                    <?php echo $this->session->flashdata('msg'); ?>
                   
+                   <div class="form-group">
+                    <label style="text-align: center;"><span>Date</span></label>
+                     <input type="date"   id="txt_invoice_date" name="txt_invoice_date"   class="form-control" value="<?php echo date('Y-m-d'); ?>">
+                    
+                  </div>
+
+                   <div class="form-group">
+                   <label style="text-align: center;"><span>DSR </span></label>
+                     <select  id="txt_invoice_dsr" name="txt_invoice_dsr" class="form-control" >
+                    
+                     <?php 
+                        foreach($dsr as $item )
+                        {
+                           echo "<option value='".$item->id."' >".$item->dsr_name."</option>";
+                        }
+                        ?>
+                     </select>
+                 
+                  </div>
+
+
                     <div class="form-group">
                    <label style="text-align: center;"><span>Product</span></label>
                      <select  id="txt_invoice_product" name="txt_invoice_product" class="form-control" >

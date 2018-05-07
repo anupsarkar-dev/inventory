@@ -27,12 +27,13 @@ $this->load->view("module/header",$data);
                                     <thead>
                                         <tr><th>SL</th>
                                       <th>Product Name</th>
-                                      <th>Product Code</th>
+                                      <th>DSR Name</th>
                                       <th>P. Quanty</th>
                                        <th>Free Item</th>
                                       <th>Total Quantity</th>
                                       <th>Price</th>
                                       <th>Amount</th>
+                                      <th>Date</th>
                                
                                       
                                     
@@ -48,6 +49,8 @@ $i=1;
                   $url=base_url();
                   $id=$item->sid; 
                   $name=$item->name; 
+                  $date=date_create($item->date);
+ 
                 
 
 
@@ -55,12 +58,13 @@ $i=1;
                                        echo "<td>".$i."</td>"; 
                                       
                                        echo "<td>".$name."</td>";   
-                                       echo "<td>".$item->code."</td>";
+                                       echo "<td>".$item->dsr_name."</td>";
                                        echo "<td>".$item->quantity."</td>";
                                        echo "<td>".$item->free_item."</td>";
                                        echo "<td>".$item->total_quantity."</td>";
                                        echo "<td>৳ ".$item->price."</td>";
                                        echo "<td>৳ ".$item->amount."</td>";
+                                        echo "<td>".date_format($date,"d/m/Y ")."</td>";
                                   
                                          
 

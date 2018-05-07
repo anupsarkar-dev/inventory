@@ -46,11 +46,7 @@ $this->load->view("module/header",$data);
                      <input type="number" placeholder="Free Item" id="txt_stock_free" name="txt_stock_free" class="form-control" value="<?php echo set_value('txt_stock_free'); ?>">
                      <span class="text-danger"><?php echo form_error('txt_stock_free'); ?></span>
                   </div>
-
-                   <div class="form-group">
-                     <input type="number" placeholder=" Price(৳)" id="txt_stock_price" name="txt_stock_price" class="form-control" value="<?php echo set_value('txt_stock_price'); ?>">
-                     <span class="text-danger"><?php echo form_error('txt_stock_price'); ?></span>
-                  </div>
+ 
 
                    
 

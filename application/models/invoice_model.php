@@ -33,10 +33,11 @@ class invoice_model extends CI_Model
 
         //Active Record
          $this->db->select('*');
-         $this->db->select('products.name as name,products.code as code,challan.id as sid,challan.price as price');
+         $this->db->select('products.name as name,products.code as code,challan.id as sid,challan.price as price,dsr.dsr_name as dsr_name');
          $this->db->from('challan'); /*I assume that film was the table name*/
         /*I assume that film was the table name*/
          $this->db->join('products', 'products.id = challan.product_id');
+         $this->db->join('dsr', 'dsr.id = challan.dsr_id');
 
          $sql= $this->db->get();
 
@@ -85,10 +86,11 @@ function insert_return($data)
 
         //Active Record
          $this->db->select('*');
-         $this->db->select('products.name as name,products.code as code,challan_return.id as sid');
+         $this->db->select('products.name as name,products.code as code,challan_return.id as sid,dsr.dsr_name as dsr_name');
          $this->db->from('challan_return'); /*I assume that film was the table name*/
         /*I assume that film was the table name*/
          $this->db->join('products', 'products.id = challan_return.product_id');
+          $this->db->join('dsr', 'dsr.id = challan_return.dsr_id');
 
          $sql= $this->db->get();
 
