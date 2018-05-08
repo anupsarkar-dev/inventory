@@ -1,4 +1,3 @@
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Products extends CI_Controller {
@@ -25,7 +24,7 @@ class Products extends CI_Controller {
   {
     $data['current']='products';
     $data['categories'] = $this->products_model->getCategories();
-    $this->load->view('products/getCategories',$data);
+    $this->load->view('products/getcategories',$data);
   }
 
 
@@ -189,7 +188,10 @@ public function add()
    
       $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">validation error</div>');
 
-      $this->load->view('products/add/');
+      $data['current']='products';
+      $data['categories'] = $this->products_model->getCategories();
+
+      $this->load->view('products/add',$data);
     }
     else
     {

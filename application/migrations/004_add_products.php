@@ -41,7 +41,7 @@ class Migration_Add_products extends CI_Migration {
                         , 'uppdated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
                 ));
                 $this->dbforge->add_key('id', TRUE);
-                  $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES category(id)');
+                  $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE');
                 $this->dbforge->create_table('products');
         }
 

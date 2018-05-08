@@ -71,11 +71,7 @@ $this->load->view("module/header",$data);
                      <input type="number" placeholder="Free Item" id="txt_invoice_free" name="txt_invoice_free" class="form-control" value="<?php echo set_value('txt_invoice_free'); ?>">
                      <span class="text-danger"><?php echo form_error('txt_invoice_free'); ?></span>
                   </div>
-
-                   <div class="form-group">
-                     <input type="number" placeholder=" Price(৳)" id="txt_invoice_price" name="txt_invoice_price" class="form-control" value="<?php echo set_value('txt_invoice_price'); ?>">
-                     <span class="text-danger"><?php echo form_error('txt_invoice_price'); ?></span>
-                  </div>
+ 
 
                    <div class="form-group">
                      <input type="number" placeholder=" Rec. Amount(৳)" id="txt_invoice_rec" name="txt_invoice_rec" class="form-control" value="<?php echo set_value('txt_invoice_rec'); ?>">

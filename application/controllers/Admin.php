@@ -80,7 +80,7 @@ class Admin extends CI_Controller {
         // check if username and password is correct
 
         $result = $this->stocks_model->insert_dsr($data);
-        if (result) //active user record is present
+        if ($result) //active user record is present
         {
           $this->session->set_flashdata('msg', '<div class="alert alert-success text-center">A New DSR has added !</div>');
           redirect('admin/dsr');
@@ -95,6 +95,22 @@ class Admin extends CI_Controller {
   }
 
 
+ public function dsr_delete($id)
+  {
 
+    if ($this->stocks_model->delete_dsr($id))
+    {
+      $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">DSR has been Deleted !</div>');
+      redirect('admin/dsr');
+    }
+    else
+    {
+      $this->session->set_flashdata('msg', '<div class="alert alert-danger text-center">DSR Deletion Failed!</div>');
+      redirect('admin/dsr');
+    }
+
+    // echo var_dump($data);
+
+  }
 
 }

@@ -1,4 +1,3 @@
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Invoice extends CI_Controller {
@@ -43,7 +42,7 @@ public function  add()
     $product = $this->input->post("txt_invoice_product");
     $qty = $this->input->post("txt_invoice_qty");
     $free = $this->input->post("txt_invoice_free");
-    $price = $this->input->post("txt_invoice_price");
+    
     $dsr = $this->input->post("txt_invoice_dsr");
     $date = $this->input->post("txt_invoice_date");
 
@@ -52,12 +51,17 @@ public function  add()
 
      $this->form_validation->set_rules("txt_invoice_free", "invoice Free", "trim|required");
 
-      $this->form_validation->set_rules("txt_invoice_price", "Price", "trim|required");
+      
 
-      $this->form_validation->set_rules("txt_invoice_price", "dsr", "required");
+ 
       $this->form_validation->set_rules("txt_invoice_product", "Product", "required");
 
  
+   
+      $pro=$this->stocks_model->get_product_price($product);
+   
+      $price=$pro->price;
+      $present_stock=$this->stocks_model->getpid($product);
 
     if ($this->form_validation->run() == FALSE)
     {
@@ -79,6 +83,34 @@ public function  add()
       $amount=$qty*$price;
       $total_qty=$qty+$free;
       
+
+
+
+
+
+      if($present_stock != null)
+      {
+        $pstock=$this->stocks_model->get_present_stock($present_stock->stock_present_id);
+
+         $data2 = array(
+
+          'quantity' => $pstock->quantity - $qty,
+          'free_item' => $pstock->free_item - $free,
+          'total_quantity' => $pstock->total_quantity-$total_qty,
+          'price' => ($pstock->price) - $price,
+          'amount' => $pstock->amount - $amount ,
+         
+        );
+
+         $status=$this->stocks_model->update_ps($data2,$present_stock->stock_present_id);
+
+         if(!$status)
+         {
+          echo "False";
+         }
+      }
+
+
       $data = array(
           'product_id' => $product,
           'quantity' => $qty,
@@ -161,7 +193,7 @@ public function  add_return()
     $product = $this->input->post("txt_invoice_product");
     $qty = $this->input->post("txt_invoice_qty");
     $free = $this->input->post("txt_invoice_free");
-    $price = $this->input->post("txt_invoice_price");
+    
     $rec= $this->input->post("txt_invoice_rec");
     $due = $this->input->post("txt_invoice_due");
     $dsr = $this->input->post("txt_invoice_dsr");
@@ -172,13 +204,21 @@ public function  add_return()
 
     $this->form_validation->set_rules("txt_invoice_qty", "invoice Quantity", "trim|required");
 
-     $this->form_validation->set_rules("txt_invoice_free", "invoice Free", "trim|required");
+     $this->form_validation->set_rules("txt_invoice_free", "invoice Free", "trim");
 
-      $this->form_validation->set_rules("txt_invoice_price", "Price", "trim|required");
+  
 
  
-      $this->form_validation->set_rules("txt_invoice_price", "dsr", "required");
+  
       $this->form_validation->set_rules("txt_invoice_product", "Product", "required");
+
+
+
+
+      $pro=$this->stocks_model->get_product_price($product);
+   
+      $price=$pro->price;
+      $present_stock=$this->stocks_model->getpid($product);
 
 
     if ($this->form_validation->run() == FALSE)
@@ -188,7 +228,7 @@ public function  add_return()
        '.validation_errors().'</div>');
 
      
-      $data['products'] = $this->products_model->get_return();
+      $data['products'] = $this->products_model->get();
       $data['dsr']=$this->stocks_model->get_dsr();
       
       $this->load->view('invoice/add',$data);
@@ -200,13 +240,39 @@ public function  add_return()
 
       $amount=$qty*$price;
       $total_qty=$qty+$free;
+
+
+
+      if($present_stock != null)
+      {
+        $pstock=$this->stocks_model->get_present_stock($present_stock->stock_present_id);
+
+         $data2 = array(
+
+          'quantity' => $pstock->quantity + $qty,
+          'free_item' => $pstock->free_item + $free,
+          'total_quantity' => $pstock->total_quantity + $total_qty,
+          'price' => ($pstock->price) + $price,
+          'amount' => $pstock->amount + $amount ,
+         
+        );
+
+         $status=$this->stocks_model->update_ps($data2,$present_stock->stock_present_id);
+
+         if(!$status)
+         {
+          echo "False";
+         }
+      }
+
+
       
       $data = array(
           'product_id' => $product,
           'quantity' => $qty,
           'free_item' => $free,
           'total_quantity' => $total_qty,
-          'price' => $price,
+       
           'amount' => $amount ,
           'rec_amount' => $rec,
           'due_amount' => $due ,

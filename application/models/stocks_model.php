@@ -47,7 +47,7 @@ class stocks_model extends CI_Model
 
         //Active Record
          $this->db->select('*');
-         $this->db->select('products.name as name,products.code as code,stock_received.id as sid,products.price as price');
+         $this->db->select('products.name as name,products.code as codes,stock_received.id as sid,products.price as price');
          $this->db->from('stock_received'); /*I assume that film was the table name*/
         /*I assume that film was the table name*/
          $this->db->join('products', 'products.id = stock_received.product_id');
@@ -92,23 +92,18 @@ public function delete_stock_received($id)
 
     function insert_stock_returned($data)
     {
-return $this->db->insert('stock_returned', $data);
-       }
-
-        
-   function getpid($pid)
-{
-      $this->db->select('*');
-    $this->db->from('stock_received');
-    $this->db->where('product_id',$pid);
-    if($this->db->get()->num_rows() > 0)
-    {
-         return $this->db->get()->row()->stock_present_id;
+     return $this->db->insert('stock_return', $data);
     }
-    else
-        return 0;
-   
-}
+
+  
+
+public function getpid($pid)
+     {
+     $this->db->select('*');
+      $this->db->from('stock_received');
+    $this->db->where('product_id',$pid);
+    return $this->db->get()->row();
+    }
  
   public function get_present_stock($id)
      {

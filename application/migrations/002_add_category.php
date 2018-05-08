@@ -26,11 +26,11 @@ class Migration_Add_Category extends CI_Migration {
                         )
                 ));
                 $this->dbforge->add_key('id', TRUE);
-                $this->dbforge->create_table('Category');
+                $this->dbforge->create_table('category');
         }
 
         public function down()
         {
-                $this->dbforge->drop_table('Category');
+                $this->dbforge->drop_table('category');
         }
 }

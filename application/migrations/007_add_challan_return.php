@@ -68,8 +68,8 @@ class Migration_Add_Challan_Return extends CI_Migration {
                         , 'date TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
                 ));
                 $this->dbforge->add_key('id', TRUE);
-                $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (product_id) REFERENCES products(id)');
-                $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (dsr_id) REFERENCES dsr(id)');
+                $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE');
+                $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (dsr_id) REFERENCES dsr(id) ON DELETE CASCADE');
                 $this->dbforge->create_table('challan_return');
         }
 

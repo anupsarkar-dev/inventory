@@ -27,11 +27,11 @@ $this->load->view("module/header",$data);
                                     <thead>
                                         <tr><th>SL</th>
                                       <th>Product Name</th>
-                                      <th>Product Code</th>
-                                      <th>P. Quanty</th>
+          
+                                      <th>P. Quantity</th>
                                        <th>Free Item</th>
                                       <th>Total Quantity</th>
-                                      <th>Price</th>
+                                      <th>Unit Price</th>
                                       <th>Amount</th>
                                
                                       
@@ -55,7 +55,7 @@ $i=1;
                                        echo "<td>".$i."</td>"; 
                                       
                                        echo "<td>".$name."</td>";   
-                                       echo "<td>".$item->code."</td>";
+                              
                                        echo "<td>".$item->quantity."</td>";
                                        echo "<td>".$item->free_item."</td>";
                                        echo "<td>".$item->total_quantity."</td>";

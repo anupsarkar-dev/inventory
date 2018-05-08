@@ -56,7 +56,7 @@ $i=1;
                                   
                                          echo  "<td>
                                          
-                                      <a href='".$url."index.php/products/dsr_delete/".$id."'>Delete  </a>
+                                      <a href='".$url."index.php/admin/dsr_delete/".$id."'>Delete  </a>
                                       
                                       </td>";
                                        echo    "</tr>";

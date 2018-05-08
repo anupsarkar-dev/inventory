@@ -1,4 +1,3 @@
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Stock extends CI_Controller {
@@ -69,7 +68,7 @@ public function received_add()
     {
 
       // validation succeeds
- $price=$this->stocks_model->get_product_price($product_id);
+      $price=$this->stocks_model->get_product_price($product_id);
 
       
       $amount=$qty*$price->price;
@@ -178,7 +177,10 @@ public function returned_add()
   
 
  
- $price=10000;
+    $pro=$this->stocks_model->get_product_price($product);
+   
+    $price=$pro->price;
+
     if ($this->form_validation->run() == FALSE)
     {
 
@@ -195,30 +197,33 @@ public function returned_add()
 
       // validation succeeds
 
-      $amount=$qty*$price;
+      $amount=$qty * ($pro->price);
       $total_qty=$qty+$free;
 
-      $pre_id=$this->stocks_model->getpid($product);
+      $present_stock=$this->stocks_model->getpid($product);
 
-      if($pre_id != 0)
+     
+
+      if($present_stock != null)
       {
-        $pstock=$this->stocks_model->get_present_stock($pre_id);
+        $pstock=$this->stocks_model->get_present_stock($present_stock->stock_present_id);
 
          $data2 = array(
-   
+
           'quantity' => $pstock->quantity + $qty,
           'free_item' => $pstock->free_item+ $free,
           'total_quantity' => $pstock->total_quantity+$total_qty,
-          'price' => $pstock->price+$price,
-          'amount' => $pstock->$amount ,
+          'price' => ($pstock->price) +$price,
+          'amount' => $pstock->amount + $amount ,
          
         );
 
-         $status=$this->stocks_model->update_ps($data2,$pre_id);
+         $status=$this->stocks_model->update_ps($data2,$present_stock->stock_present_id);
 
       }
       
       $data = array(
+          'stock_present_id' =>$present_stock->stock_present_id,
           'product_id' => $product,
           'quantity' => $qty,
           'free_item' => $free,
@@ -239,7 +244,7 @@ public function returned_add()
           //redirect('stock/returned');
           if($status)
           {
-            echo "true";
+            redirect('stock/returned');
           }
           else
           {
